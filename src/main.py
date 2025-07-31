@@ -4,6 +4,12 @@ import uuid
 import time
 import threading
 from datetime import datetime, timedelta
+from flask import Flask
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app, supports_credentials=True)
+
 
 # DON'T CHANGE THIS !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
