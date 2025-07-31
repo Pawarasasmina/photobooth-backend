@@ -36,12 +36,19 @@ def get_local_ip():
 
 
 
+
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
 
-# Enable CORS for all routes and allow all methods/headers
+# Proper CORS setup for frontend
 from flask_cors import CORS
-CORS(app, resources={r"/*": {"origins": "https://photobooth-frontend.vercel.app"}}, supports_credentials=True, allow_headers="*", methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
+CORS(
+    app,
+    resources={r"/api/*": {"origins": "https://photobooth-frontend.vercel.app"}},
+    supports_credentials=True,
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+)
 
 # Initialize SocketIO
 socketio = SocketIO(app, cors_allowed_origins="*", logger=True, engineio_logger=True)
